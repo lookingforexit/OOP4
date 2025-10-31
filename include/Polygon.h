@@ -50,6 +50,11 @@ Polygon<T>::Polygon(const std::initializer_list<Point<T>>& rhs) : vertices_(rhs.
 template <Scalar T>
 Point<T> Polygon<T>::calcGeometricCenter() const
 {
+    if (vertices_.empty())
+    {
+        return Point<T>();
+    }
+
     T xResult = 0;
     T yResult = 0;
     for (size_t i = 0; i < vertices_.size(); ++i)
@@ -64,6 +69,11 @@ Point<T> Polygon<T>::calcGeometricCenter() const
 template <Scalar T>
 Polygon<T>::operator double() const
 {
+    if (vertices_.empty())
+    {
+        return 0;
+    }
+
     double area = 0;
     for (size_t i = 0; i < vertices_.size(); ++i)
     {

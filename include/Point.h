@@ -12,10 +12,10 @@ public:
     T x;
     T y;
 public:
-    Point() = default;
+    Point();
     Point(T x, T y);
 public:
-    virtual ~Point() noexcept = default;
+    ~Point() noexcept = default;
 public:
     template <Scalar U>
     friend std::istream& operator>>(std::istream& istream, Point<U>& point);
@@ -23,6 +23,9 @@ public:
     template <Scalar U>
     friend std::ostream& operator<<(std::ostream& ostream, const Point<U>& point);
 };
+
+template <Scalar T>
+Point<T>::Point() : x(0), y(0) {}
 
 template <Scalar T>
 Point<T>::Point(T x, T y) : x(x), y(y) {}
