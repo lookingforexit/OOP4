@@ -5,17 +5,28 @@
 
 template <Scalar T>
 class Rectangle : public Polygon<T> {
+private:
+    constexpr static size_t amountOfVertices_ = 4;
 public:
-    Rectangle() = default;
-    explicit Rectangle(std::vector<std::unique_ptr<Point<T>>>&& points) noexcept;
+    Rectangle();
+    Rectangle(const std::initializer_list<Point<T>>& points);
 public:
-    Rectangle(Rectangle&&) = default;
+    Rectangle(Rectangle&&) noexcept = default;
     Rectangle& operator=(Rectangle&&) noexcept = default;
 public:
     ~Rectangle() noexcept override = default;
 };
 
 template <Scalar T>
-Rectangle<T>::Rectangle(std::vector<std::unique_ptr<Point<T>>>&& points) noexcept : Polygon<T>(std::move(points)) {}
+Rectangle<T>::Rectangle() : Polygon<T>(amountOfVertices_) {}
+
+template <Scalar T>
+Rectangle<T>::Rectangle(const std::initializer_list<Point<T>>& points) : Polygon<T>(points)
+{
+    if (points.size() != amountOfVertices_)
+    {
+        throw std::invalid_argument("invalid amount of points");
+    }
+}
 
 #endif //RECTANGLE_H

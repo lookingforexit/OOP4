@@ -6,8 +6,8 @@
 template <Scalar T>
 class Square final : public Rectangle<T> {
 public:
-    Square() = default;
-    explicit Square(std::vector<std::unique_ptr<Point<T>>>&&);
+    Square();
+    Square(const std::initializer_list<Point<T>>& points);
 public:
     Square(Square&&) = default;
     Square& operator=(Square&&) = default;
@@ -16,6 +16,9 @@ public:
 };
 
 template <Scalar T>
-Square<T>::Square(std::vector<std::unique_ptr<Point<T>>>&& points) : Polygon<T>(std::move(points)) {}
+Square<T>::Square() : Rectangle<T>() {}
+
+template <Scalar T>
+Square<T>::Square(const std::initializer_list<Point<T>>& points) : Rectangle<T>(points) {}
 
 #endif //SQUARE_H

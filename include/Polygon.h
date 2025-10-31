@@ -10,8 +10,8 @@ class Polygon : public Figure<T> {
 protected:
     std::vector<std::unique_ptr<Point<T>>> vertices_;
 protected:
-    Polygon() = default;
-    explicit Polygon(std::vector<std::unique_ptr<Point<T>>>&& rhs);
+    explicit Polygon(size_t amountOfVertices);
+    Polygon(const std::initializer_list<Point<T>>& rhs);
 protected:
     Polygon(Polygon&& rhs) noexcept = default;
     Polygon& operator=(Polygon&& rhs) noexcept = default;
@@ -29,7 +29,23 @@ public:
 };
 
 template <Scalar T>
-Polygon<T>::Polygon(std::vector<std::unique_ptr<Point<T>>>&& rhs) : vertices_(std::move(rhs)) {}
+Polygon<T>::Polygon(size_t amountOfVertices) : vertices_(amountOfVertices)
+{
+    for (auto& vert : vertices_)
+    {
+        vert = std::make_unique<Point<T>>();
+    }
+}
+
+template <Scalar T>
+Polygon<T>::Polygon(const std::initializer_list<Point<T>>& rhs) : vertices_(rhs.size())
+{
+    size_t i = 0;
+    for (const auto& point : rhs)
+    {
+        vertices_[i++] = std::make_unique<Point<T>>(point.x, point.y);
+    }
+}
 
 template <Scalar T>
 Point<T> Polygon<T>::calcGeometricCenter() const
@@ -64,7 +80,7 @@ std::istream& operator>>(std::istream& istream, Polygon<T>& rhs)
 {
     for (size_t i = 0; i < rhs.vertices_.size(); ++i)
     {
-        if (!(istream >> rhs.vertices_[i]))
+        if (!(istream >> *rhs.vertices_[i]))
         {
             throw std::invalid_argument("invalid point");
         }
@@ -76,6 +92,11 @@ std::istream& operator>>(std::istream& istream, Polygon<T>& rhs)
 template <Scalar T>
 std::ostream& operator<<(std::ostream& ostream, const Polygon<T>& rhs)
 {
+    if (rhs.vertices_.empty())
+    {
+        return ostream << "empty";
+    }
+
     for (size_t i = 0; i < rhs.vertices_.size() - 1; ++i)
     {
         ostream << *rhs.vertices_[i] << ' ';
