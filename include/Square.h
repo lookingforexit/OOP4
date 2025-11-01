@@ -9,6 +9,9 @@ public:
     Square();
     Square(const std::initializer_list<Point<T>>& points);
 public:
+    Square(const Square&) = default;
+    Square& operator=(const Square&) = default;
+public:
     Square(Square&&) = default;
     Square& operator=(Square&&) = default;
 public:

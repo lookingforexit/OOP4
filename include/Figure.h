@@ -7,9 +7,9 @@ template <Scalar T>
 class Figure {
 protected:
     Figure() = default;
-public:
-    Figure(const Figure&) = delete;
-    Figure& operator=(const Figure&) = delete;
+protected:
+    Figure(const Figure&) = default;
+    Figure& operator=(const Figure&) = default;
 protected:
     Figure(Figure&&) noexcept = default;
     Figure& operator=(Figure&&) noexcept = default;

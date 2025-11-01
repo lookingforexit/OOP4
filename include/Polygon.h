@@ -13,8 +13,11 @@ protected:
     explicit Polygon(size_t amountOfVertices);
     Polygon(const std::initializer_list<Point<T>>& rhs);
 protected:
-    Polygon(Polygon&& rhs) noexcept = default;
-    Polygon& operator=(Polygon&& rhs) noexcept = default;
+    Polygon(const Polygon&) = default;
+    Polygon& operator=(const Polygon&) = default;
+protected:
+    Polygon(Polygon&&) noexcept = default;
+    Polygon& operator=(Polygon&&) noexcept = default;
 public:
     ~Polygon() noexcept override = default;
 public:

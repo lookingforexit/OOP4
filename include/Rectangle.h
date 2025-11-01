@@ -11,6 +11,9 @@ public:
     Rectangle();
     Rectangle(const std::initializer_list<Point<T>>& points);
 public:
+    Rectangle(const Rectangle&) = default;
+    Rectangle& operator=(const Rectangle&) = default;
+public:
     Rectangle(Rectangle&&) noexcept = default;
     Rectangle& operator=(Rectangle&&) noexcept = default;
 public:

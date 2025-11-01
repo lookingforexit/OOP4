@@ -11,6 +11,9 @@ public:
     Trapezoid();
     Trapezoid(const std::initializer_list<Point<T>>& points);
 public:
+    Trapezoid(const Trapezoid&) = default;
+    Trapezoid& operator=(const Trapezoid&) = default;
+public:
     Trapezoid(Trapezoid&&) noexcept = default;
     Trapezoid& operator=(Trapezoid&&) noexcept = default;
 public:
