@@ -15,7 +15,7 @@ public:
     Square(Square&&) = default;
     Square& operator=(Square&&) = default;
 public:
-    ~Square() override = default;
+    ~Square() noexcept override = default;
 };
 
 template <Scalar T>
