@@ -13,7 +13,7 @@ public:
     T y;
 public:
     Point();
-    Point(T x, T y);
+    Point(const T& x, const T& y);
 public:
     ~Point() noexcept = default;
 public:
@@ -28,7 +28,7 @@ template <Scalar T>
 Point<T>::Point() : x(0), y(0) {}
 
 template <Scalar T>
-Point<T>::Point(T x, T y) : x(x), y(y) {}
+Point<T>::Point(const T& x, const T& y) : x(x), y(y) {}
 
 template <Scalar T>
 std::istream& operator>>(std::istream& istream, Point<T>& point)
